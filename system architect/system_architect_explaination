@@ -4,7 +4,7 @@
 
 ## 1. Architecture Overview
 
-AutoCare AI uses a microservices architecture to predict whether a vehicle is Healthy, requires Maintenance Soon, or requires Immediate Service.
+AutoCare AI uses a microservices architecture to predict whether a vehicle is Safe for Driving, At Risk, or Needs Immediate Maintenance.
 
 The system is divided into four independent services:
 
@@ -100,9 +100,9 @@ The AI Inference Service contains the trained machine-learning model and perform
 
 ### Prediction classes
 
-- Healthy
-- Maintenance Soon
-- Immediate Service Required
+- Safe for Driving
+- At Risk
+- Needs Immediate Maintenance
 
 ### Proposed endpoints
 

@@ -11,6 +11,9 @@ env/
 ENV/
 .venv/
 
+# Local service data
+services/database_service/data/
+
 # IDEs & OS System Files
 .vscode/
 .idea/
