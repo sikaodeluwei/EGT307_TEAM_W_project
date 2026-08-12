@@ -19,12 +19,12 @@ spec:
         image: api-gateway:latest
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 8001
+        - containerPort: 8000
         env:
         - name: AI_SERVICE_URL
           value: "http://ai-inference-service:8001"
         - name: DATABASE_SERVICE_URL
-          value: "http://database-service:8001"
+          value: "http://database-service:8000"
 ---
 apiVersion: v1
 kind: Service
@@ -33,7 +33,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8001
-    targetPort: 8001
+  - port: 8000
+    targetPort: 8000
   selector:
     app: api-gateway
