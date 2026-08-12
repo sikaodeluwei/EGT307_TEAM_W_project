@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dashboard
-          image: image: caozhenyu33/autocare-dashboard:v1
+          image: caozhenyu33/autocare-dashboard:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8501

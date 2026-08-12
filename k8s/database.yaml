@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: database
-          image: image: caozhenyu33/autocare-database:v1
+          image: caozhenyu33/autocare-database:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8000
