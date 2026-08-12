@@ -7,7 +7,6 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
-COPY train_model.py .
 COPY vehicle_maintenance_model.pkl .
 
 EXPOSE 8001
