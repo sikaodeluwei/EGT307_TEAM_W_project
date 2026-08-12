@@ -3,8 +3,7 @@ import logging
 from fastapi import FastAPI, HTTPException, status
 import httpx
 
-# Local module import (safe for Docker & standalone uvicorn runs)
-from schemas import TelemetryInput
+from services.api_gateway.schemas import VehicleTelemetryInput
 
 app = FastAPI(title="AutoCare AI - API Gateway")
 
@@ -19,7 +18,7 @@ logger = logging.getLogger("api_gateway")
 
 
 @app.post("/predict")
-async def predict_maintenance(telemetry: TelemetryInput):
+async def predict_maintenance(telemetry: VehicleTelemetryInput):
     # Prepare payload from telemetry input
     telemetry_payload = telemetry.model_dump()
 
