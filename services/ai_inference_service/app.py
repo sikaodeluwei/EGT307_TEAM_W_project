@@ -87,7 +87,7 @@ def root():
 def health_check():
     return {
         "status": "healthy",
-        "service": "prediction_service",
+        "service": "ai_inference_service",
         "model_loaded": True,
     }
 
