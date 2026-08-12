@@ -3,8 +3,8 @@ import logging
 from fastapi import FastAPI, HTTPException, status
 import httpx
 
-# Import existing schemas
-from .schemas import TelemetryInput
+# Local module import (safe for Docker & standalone uvicorn runs)
+from schemas import TelemetryInput
 
 app = FastAPI(title="AutoCare AI - API Gateway")
 
@@ -12,10 +12,11 @@ app = FastAPI(title="AutoCare AI - API Gateway")
 AI_SERVICE_URL = os.getenv("AI_SERVICE_URL", "http://127.0.0.1:8002")
 DATABASE_SERVICE_URL = os.getenv("DATABASE_SERVICE_URL", "http://127.0.0.1:8001")
 
-# Standard HTTP client timeout (10 seconds)
+# Standard HTTP client timeout (10 seconds total, 5 seconds connect)
 HTTP_TIMEOUT = httpx.Timeout(10.0, connect=5.0)
 
 logger = logging.getLogger("api_gateway")
+
 
 @app.post("/predict")
 async def predict_maintenance(telemetry: TelemetryInput):
