@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        image: api-gateway:latest
+        image: aadgmagar/api-gateway:v1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
