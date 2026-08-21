@@ -1,6 +1,6 @@
 # AutoCare AI - System Architecture Description
 
-![AutoCare AI System Architecture](system_architect_diagram.png)
+![AutoCare AI System Architecture](system_architect_diagram.svg)
 
 ## 1. Architecture overview
 
