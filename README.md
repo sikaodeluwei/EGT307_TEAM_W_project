@@ -58,9 +58,66 @@ All services use the exact field names defined by the API Gateway and AI Inferen
 
 ## Dataset and model
 
-`test_data.xlsx` contains 2,500 simulated telemetry records in the `Telemetry Data` sheet. It contains the ten model features, a `Car_Plate` identifier excluded during training, and the `Maintenance_Decision` target. The saved Random Forest preprocessing pipeline is `services/ai_inference_service/vehicle_maintenance_model.pkl`.
+`test_data.xlsx` is the simulated dataset used to train and validate the vehicle-maintenance classifier. Its `Telemetry Data` sheet contains the ten telemetry features, a `Car_Plate` identifier and the `Maintenance_Decision` target. The saved preprocessing and Random Forest classification pipeline is `services/ai_inference_service/vehicle_maintenance_model.pkl`.
 
-The dataset and trained model are not changed by the Dashboard or Database implementation.
+### Dataset provenance
+
+- **Repository source:** team-provided `test_data.xlsx`, first added to this repository on 19 July 2026.
+- **Dataset type:** simulated vehicle telemetry for this academic project; it does not contain measurements collected from real customer vehicles.
+- **Workbook metadata:** the file identifies `openpyxl` as the creating application but does not identify a human author.
+- **External source:** no external download URL, licence or separate data-generation script is recorded in the repository. The dataset must therefore be treated as team-supplied simulated data rather than independently sourced real-world evidence.
+
+### Dataset quality profile
+
+The current workbook was profiled before model training:
+
+| Check | Result |
+|---|---:|
+| Records | 2,500 |
+| Columns | 12 |
+| Model features | 10 |
+| Missing values | 0 |
+| Exact duplicate rows | 0 |
+| Unique `Car_Plate` identifiers | 2,500 |
+
+The target is moderately imbalanced, so per-class results are considered alongside overall accuracy:
+
+| Maintenance class | Records | Share |
+|---|---:|---:|
+| `At Risk` | 1,175 | 47.00% |
+| `Safe for Driving` | 1,022 | 40.88% |
+| `Needs Immediate Maintenance` | 303 | 12.12% |
+
+`Car_Plate` is excluded because it is an identifier rather than a predictive telemetry feature. The ten model inputs are the fields listed in the telemetry schema above.
+
+### Model training and validation
+
+`services/ai_inference_service/train_model.py` provides the reproducible training procedure:
+
+1. Load the `Telemetry Data` worksheet and remove `Car_Plate`.
+2. Remove incomplete rows. The current dataset contains no incomplete rows.
+3. Use one-hot encoding for `Car_Model` and pass the nine numerical features through unchanged.
+4. Create a stratified 80/20 split using `random_state=42`, producing 2,000 training records and 500 holdout test records.
+5. Train a 200-tree `RandomForestClassifier` with balanced class weights.
+6. Save preprocessing and classification together as one inference pipeline.
+
+A reproducible run of this configuration on the current dataset produced **97.60% holdout accuracy**:
+
+| Maintenance class | Precision | Recall | F1-score | Test records |
+|---|---:|---:|---:|---:|
+| `At Risk` | 97.85% | 97.02% | 97.44% | 235 |
+| `Needs Immediate Maintenance` | 93.55% | 95.08% | 94.31% | 61 |
+| `Safe for Driving` | 98.54% | 99.02% | 98.78% | 204 |
+
+The checked-in model is loaded directly by the AI Inference Service. Retraining is not required to run the application, and the Dashboard and Database services do not modify either the dataset or model.
+
+### Dataset and model limitations
+
+- The data is simulated and has not been externally validated against real vehicle sensor readings or workshop maintenance outcomes.
+- The repository does not contain the original data-generation rules, an external source URL or a data licence; provenance is therefore limited to the committed workbook and repository history.
+- Validation currently uses one stratified holdout split. Cross-validation and evaluation on an independent real-world dataset have not been performed.
+- `Needs Immediate Maintenance` is the smallest class, representing 12.12% of records, so its class-specific results should be considered instead of relying only on overall accuracy.
+- The output is an educational maintenance-risk prediction and is not a substitute for inspection by a qualified vehicle technician.
 
 ## Local setup
 
