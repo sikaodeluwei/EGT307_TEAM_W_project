@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[3]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _deployment_image(manifest_name: str) -> str:
