@@ -213,6 +213,34 @@ Open `http://127.0.0.1:8501`. Stop the containers after testing:
 docker stop autocare-dashboard autocare-api autocare-ai autocare-db
 ```
 
+### Docker Compose quick start
+
+The root `compose.yaml` builds and starts the same four services on one shared
+Compose network. Stop manually started services or containers that already use
+ports `8000`, `8001`, `8002` or `8501`, then run:
+
+```powershell
+docker compose config
+docker compose up --build -d
+docker compose ps
+```
+
+Open `http://127.0.0.1:8501`. Compose uses the service names as internal DNS
+names, so no separate `docker network create` command is required. Prediction
+history is stored in the named `database-data` volume.
+
+View service output or stop the complete stack with:
+
+```powershell
+docker compose logs -f
+docker compose down
+```
+
+`docker compose down` keeps the Database volume. Use `docker compose down -v`
+only when the stored prediction history should also be deleted. Docker Compose
+is an optional local launcher and does not replace the assessed Kubernetes and
+Minikube deployment described below.
+
 Public versioned images used by Kubernetes:
 
 | Service | Public image |

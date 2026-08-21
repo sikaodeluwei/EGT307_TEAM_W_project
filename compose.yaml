@@ -1,0 +1,43 @@
+services:
+  database:
+    build: ./services/database_service
+    image: autocare-database:latest
+    environment:
+      DATABASE_PATH: /data/autocare.db
+    ports:
+      - "8001:8000"
+    volumes:
+      - database-data:/data
+
+  ai-inference:
+    build: ./services/ai_inference_service
+    image: autocare-ai-inference:latest
+    ports:
+      - "8002:8001"
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api_gateway/Dockerfile
+    image: api-gateway:latest
+    environment:
+      AI_SERVICE_URL: http://ai-inference:8001
+      DATABASE_SERVICE_URL: http://database:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      - ai-inference
+
+  dashboard:
+    build: ./services/dashboard_service
+    image: autocare-dashboard:latest
+    environment:
+      API_GATEWAY_URL: http://api-gateway:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api-gateway
+
+volumes:
+  database-data:
