@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1250" viewBox="0 0 1800 1250" role="img" aria-labelledby="title desc">
+  <title id="title">AutoCare AI implemented system architecture</title>
+  <desc id="desc">Four-service microservices architecture showing the Dashboard, API Gateway, three AI Inference replicas, Database Service, persistent storage, exact telemetry contract and HTTP data flow.</desc>
+
+  <defs>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#eef2ff"/>
+    </linearGradient>
+    <linearGradient id="dashBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eff6ff"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="gatewayBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ecfdf5"/>
+      <stop offset="1" stop-color="#d1fae5"/>
+    </linearGradient>
+    <linearGradient id="aiBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#faf5ff"/>
+      <stop offset="1" stop-color="#ede9fe"/>
+    </linearGradient>
+    <linearGradient id="dbBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#ffedd5"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 Z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .title { font: 800 44px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 20px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .node-title { font: 800 24px 'Segoe UI', Arial, sans-serif; }
+      .node-subtitle { font: 600 16px 'Segoe UI', Arial, sans-serif; fill: #475569; }
+      .body { font: 500 16px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .body-small { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #334155; }
+      .mono { font: 600 14px Consolas, 'Courier New', monospace; fill: #1e293b; }
+      .label { font: 700 14px 'Segoe UI', Arial, sans-serif; fill: #1e293b; }
+      .section-title { font: 800 20px 'Segoe UI', Arial, sans-serif; fill: #0f172a; }
+      .chip { font: 700 13px 'Segoe UI', Arial, sans-serif; }
+      .muted { fill: #64748b; }
+      .footer-label { font: 700 14px 'Segoe UI', Arial, sans-serif; fill: #bfdbfe; }
+      .footer-body { font: 500 14px 'Segoe UI', Arial, sans-serif; fill: #e2e8f0; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="1250" fill="url(#pageBg)"/>
+  <circle cx="1700" cy="90" r="170" fill="#c7d2fe" opacity="0.28"/>
+  <circle cx="100" cy="1180" r="220" fill="#bae6fd" opacity="0.20"/>
+
+  <text x="60" y="72" class="title">AutoCare AI - Implemented System Architecture</text>
+  <text x="62" y="107" class="subtitle">Smart vehicle-maintenance prediction using four independently deployable microservices</text>
+
+  <!-- Users -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="190" width="215" height="250" rx="24" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  </g>
+  <circle cx="162" cy="252" r="27" fill="#334155"/>
+  <circle cx="122" cy="320" r="23" fill="#64748b"/>
+  <circle cx="202" cy="320" r="23" fill="#64748b"/>
+  <path d="M105 382 C108 337, 137 318, 162 318 C188 318, 216 337, 220 382 Z" fill="#334155"/>
+  <text x="162" y="406" text-anchor="middle" class="node-title" fill="#0f172a">Users</text>
+  <text x="162" y="430" text-anchor="middle" class="body-small">Owners · technicians · fleets</text>
+
+  <!-- Dashboard -->
+  <g filter="url(#shadow)">
+    <rect x="340" y="150" width="300" height="390" rx="26" fill="url(#dashBg)" stroke="#2563eb" stroke-width="3"/>
+  </g>
+  <rect x="365" y="175" width="54" height="54" rx="14" fill="#2563eb"/>
+  <path d="M377 212 L388 198 L398 207 L408 190" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="435" y="194" class="node-title" fill="#1d4ed8">1. Dashboard</text>
+  <text x="435" y="220" class="node-subtitle">Streamlit · port 8501</text>
+  <line x1="365" y1="247" x2="615" y2="247" stroke="#93c5fd" stroke-width="2"/>
+  <text x="367" y="278" class="body">• Collects the 10 telemetry fields</text>
+  <text x="367" y="307" class="body">• Calls only the API Gateway</text>
+  <text x="367" y="336" class="body">• Displays the returned decision</text>
+  <text x="367" y="365" class="body">• Shows confidence and issues</text>
+  <text x="367" y="394" class="body">• Retrieves prediction history</text>
+  <rect x="367" y="421" width="228" height="38" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <circle cx="387" cy="440" r="7" fill="#16a34a"/>
+  <text x="402" y="445" class="body-small">Safe for Driving</text>
+  <circle cx="520" cy="440" r="7" fill="#d97706"/>
+  <text x="535" y="445" class="body-small">At Risk</text>
+  <rect x="367" y="470" width="228" height="38" rx="12" fill="#ffffff" stroke="#93c5fd"/>
+  <circle cx="387" cy="489" r="7" fill="#dc2626"/>
+  <text x="402" y="494" class="body-small">Needs Immediate Maintenance</text>
+
+  <!-- API Gateway -->
+  <g filter="url(#shadow)">
+    <rect x="725" y="150" width="330" height="390" rx="26" fill="url(#gatewayBg)" stroke="#059669" stroke-width="3"/>
+  </g>
+  <rect x="750" y="175" width="54" height="54" rx="14" fill="#059669"/>
+  <path d="M765 193 L755 202 L765 211 M789 193 L799 202 L789 211 M783 187 L771 217" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="820" y="194" class="node-title" fill="#047857">2. API Gateway</text>
+  <text x="820" y="220" class="node-subtitle">FastAPI · port 8000</text>
+  <line x1="750" y1="247" x2="1030" y2="247" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="752" y="278" class="body">• Validates telemetry ranges</text>
+  <text x="752" y="307" class="body">• Coordinates AI and Database calls</text>
+  <text x="752" y="336" class="body">• Preserves the AI response</text>
+  <text x="752" y="365" class="body">• Applies finite HTTP timeouts</text>
+  <rect x="752" y="390" width="275" height="42" rx="11" fill="#ffffff" stroke="#6ee7b7"/>
+  <text x="770" y="416" class="mono">POST /predict</text>
+  <rect x="752" y="443" width="275" height="42" rx="11" fill="#ffffff" stroke="#6ee7b7"/>
+  <text x="770" y="469" class="mono">GET /history</text>
+  <text x="752" y="513" class="body-small muted">Internal routing through Kubernetes DNS</text>
+
+  <!-- AI Inference -->
+  <g filter="url(#shadow)">
+    <rect x="1140" y="120" width="600" height="420" rx="26" fill="url(#aiBg)" stroke="#7c3aed" stroke-width="3"/>
+  </g>
+  <rect x="1165" y="145" width="54" height="54" rx="14" fill="#7c3aed"/>
+  <circle cx="1185" cy="172" r="12" fill="none" stroke="#ffffff" stroke-width="4"/>
+  <circle cx="1202" cy="172" r="12" fill="none" stroke="#ffffff" stroke-width="4"/>
+  <path d="M1193 155 V190 M1177 172 H1210" stroke="#ffffff" stroke-width="3"/>
+  <text x="1235" y="164" class="node-title" fill="#6d28d9">3. AI Inference Service</text>
+  <text x="1235" y="191" class="node-subtitle">FastAPI · scikit-learn · port 8001</text>
+  <rect x="1166" y="216" width="158" height="38" rx="19" fill="#ffffff" stroke="#c4b5fd"/>
+  <circle cx="1187" cy="235" r="7" fill="#22c55e"/>
+  <text x="1202" y="240" class="chip" fill="#5b21b6">Replica 1</text>
+  <rect x="1336" y="216" width="158" height="38" rx="19" fill="#ffffff" stroke="#c4b5fd"/>
+  <circle cx="1357" cy="235" r="7" fill="#22c55e"/>
+  <text x="1372" y="240" class="chip" fill="#5b21b6">Replica 2</text>
+  <rect x="1506" y="216" width="158" height="38" rx="19" fill="#ffffff" stroke="#c4b5fd"/>
+  <circle cx="1527" cy="235" r="7" fill="#22c55e"/>
+  <text x="1542" y="240" class="chip" fill="#5b21b6">Replica 3</text>
+  <line x1="1165" y1="275" x2="1715" y2="275" stroke="#c4b5fd" stroke-width="2"/>
+  <text x="1167" y="307" class="body">• Loads the saved Random Forest pipeline</text>
+  <text x="1167" y="337" class="body">• Applies training-time preprocessing</text>
+  <text x="1167" y="367" class="body">• Predicts the actual maintenance class</text>
+  <text x="1167" y="397" class="body">• Returns confidence and identified issues</text>
+  <rect x="1167" y="420" width="548" height="88" rx="14" fill="#ffffff" stroke="#c4b5fd"/>
+  <text x="1185" y="447" class="mono">POST /predict · GET /health</text>
+  <text x="1185" y="475" class="body-small">Output: maintenance_decision · confidence_score</text>
+  <text x="1185" y="497" class="body-small">identified_issues · status</text>
+
+  <!-- Request and response connectors -->
+  <path d="M270 300 H335" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="272" y="259" width="64" height="28" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="304" y="279" text-anchor="middle" class="label">Browser</text>
+
+  <path d="M640 260 H720" fill="none" stroke="#2563eb" stroke-width="4" marker-end="url(#arrowBlue)"/>
+  <rect x="650" y="212" width="74" height="34" rx="10" fill="#ffffff" stroke="#93c5fd"/>
+  <text x="687" y="233" text-anchor="middle" class="label">Request</text>
+  <path d="M725 410 H645" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="650" y="423" width="86" height="32" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="693" y="444" text-anchor="middle" class="label">Response</text>
+
+  <path d="M1055 260 H1135" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="1063" y="210" width="84" height="36" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="1105" y="232" text-anchor="middle" class="label">Predict</text>
+  <path d="M1140 385 H1060" fill="none" stroke="#334155" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="1064" y="398" width="82" height="32" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="1105" y="419" text-anchor="middle" class="label">Result</text>
+
+  <!-- Telemetry contract -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="625" width="550" height="380" rx="24" fill="#ffffff" stroke="#0ea5e9" stroke-width="2.5"/>
+  </g>
+  <rect x="78" y="650" width="50" height="50" rx="14" fill="#0ea5e9"/>
+  <path d="M90 665 H116 M90 677 H116 M90 689 H108" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+  <text x="145" y="672" class="section-title">Shared telemetry contract</text>
+  <text x="145" y="696" class="body-small muted">Exact JSON field names used by all services</text>
+  <line x1="80" y1="720" x2="580" y2="720" stroke="#bae6fd" stroke-width="2"/>
+  <text x="82" y="755" class="mono">Car_Model</text>
+  <text x="82" y="790" class="mono">Vehicle_Age_Years</text>
+  <text x="82" y="825" class="mono">Total_Mileage_KM</text>
+  <text x="82" y="860" class="mono">Tire_Pressure_PSI</text>
+  <text x="82" y="895" class="mono">Engine_RPM</text>
+  <text x="322" y="755" class="mono">Battery_Voltage_V</text>
+  <text x="322" y="790" class="mono">Fuel_Level_Percent</text>
+  <text x="322" y="825" class="mono">Coolant_Temperature_C</text>
+  <text x="322" y="860" class="mono">Brake_Pad_Thickness_mm</text>
+  <text x="322" y="895" class="mono">O2_Sensor_Voltage_V</text>
+  <rect x="80" y="928" width="500" height="48" rx="12" fill="#f0f9ff" stroke="#7dd3fc"/>
+  <text x="330" y="958" text-anchor="middle" class="body-small">Validated at Gateway and Database boundaries</text>
+
+  <!-- Database -->
+  <g filter="url(#shadow)">
+    <rect x="690" y="650" width="420" height="355" rx="26" fill="url(#dbBg)" stroke="#ea580c" stroke-width="3"/>
+  </g>
+  <ellipse cx="742" cy="692" rx="28" ry="12" fill="#ea580c"/>
+  <rect x="714" y="692" width="56" height="44" fill="#ea580c"/>
+  <ellipse cx="742" cy="736" rx="28" ry="12" fill="#c2410c"/>
+  <path d="M714 705 C714 721 770 721 770 705 M714 720 C714 736 770 736 770 720" fill="none" stroke="#ffffff" stroke-width="3"/>
+  <text x="790" y="686" class="node-title" fill="#c2410c">4. Database Service</text>
+  <text x="790" y="714" class="node-subtitle">FastAPI · SQLite · port 8000</text>
+  <line x1="715" y1="760" x2="1085" y2="760" stroke="#fdba74" stroke-width="2"/>
+  <text x="716" y="792" class="mono">POST /records</text>
+  <text x="716" y="821" class="mono">GET /records</text>
+  <text x="716" y="850" class="mono">GET /records/{record_id}</text>
+  <text x="716" y="879" class="mono">GET /health</text>
+  <rect x="716" y="902" width="368" height="70" rx="12" fill="#ffffff" stroke="#fdba74"/>
+  <text x="734" y="929" class="body-small">Stores maintenance_decision exactly</text>
+  <text x="734" y="953" class="body-small">Returns history newest first</text>
+
+  <!-- Gateway to database -->
+  <path d="M890 540 V643" fill="none" stroke="#334155" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="910" y="565" width="166" height="54" rx="11" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="993" y="587" text-anchor="middle" class="label">Store prediction</text>
+  <text x="993" y="608" text-anchor="middle" class="body-small">Retrieve history</text>
+
+  <!-- Persistent storage -->
+  <g filter="url(#shadow)">
+    <rect x="1210" y="680" width="470" height="270" rx="24" fill="#ffffff" stroke="#f59e0b" stroke-width="2.5"/>
+  </g>
+  <path d="M1250 723 H1306 L1322 739 V803 H1250 Z" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <path d="M1306 723 V741 H1322" fill="none" stroke="#d97706" stroke-width="3"/>
+  <text x="1345" y="733" class="section-title">Persistent SQLite storage</text>
+  <text x="1345" y="761" class="node-subtitle">database-pvc · 1 Gi · ReadWriteOnce</text>
+  <line x1="1238" y1="825" x2="1652" y2="825" stroke="#fde68a" stroke-width="2"/>
+  <text x="1240" y="857" class="mono">DATABASE_PATH=/data/autocare.db</text>
+  <text x="1240" y="887" class="body">• Mounted at /data</text>
+  <text x="1240" y="916" class="body">• Records survive Database pod replacement</text>
+  <path d="M1110 842 H1203" fill="none" stroke="#d97706" stroke-width="4" stroke-dasharray="9 7" marker-end="url(#arrow)"/>
+  <text x="1157" y="824" text-anchor="middle" class="label">PVC mount</text>
+
+  <!-- System qualities -->
+  <g filter="url(#shadow)">
+    <rect x="55" y="1040" width="1625" height="150" rx="24" fill="#0f172a"/>
+  </g>
+  <text x="85" y="1077" class="section-title" fill="#ffffff">Deployment qualities</text>
+  <line x1="85" y1="1093" x2="1650" y2="1093" stroke="#334155" stroke-width="2"/>
+  <circle cx="115" cy="1138" r="23" fill="#2563eb"/>
+  <path d="M104 1138 H126 M115 1127 V1149" stroke="#ffffff" stroke-width="4"/>
+  <text x="155" y="1129" class="footer-label">MODULAR</text>
+  <text x="155" y="1153" class="footer-body">Independent source, dependencies and Dockerfile per service</text>
+
+  <circle cx="650" cy="1138" r="23" fill="#7c3aed"/>
+  <path d="M640 1148 V1137 H648 V1148 M653 1148 V1128 H661 V1148" fill="none" stroke="#ffffff" stroke-width="4"/>
+  <text x="690" y="1129" class="footer-label">SCALABLE</text>
+  <text x="690" y="1153" class="footer-body">Three AI pods behind one Kubernetes ClusterIP Service</text>
+
+  <circle cx="1175" cy="1138" r="23" fill="#ea580c"/>
+  <path d="M1164 1138 L1172 1146 L1187 1129" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1215" y="1129" class="footer-label">RESILIENT</text>
+  <text x="1215" y="1153" class="footer-body">Health probes, timeouts, readable errors and persistent records</text>
+
+  <text x="1740" y="1218" text-anchor="end" class="body-small muted">Implemented deployment · Docker + Kubernetes (Minikube)</text>
+</svg>
